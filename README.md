@@ -10,28 +10,49 @@ work may be serialized, repeated per item, or unable to overlap with batched
 accelerator inference. This repository measures those effects without changing
 the checkpoint, input pixels, task, or requested outputs.
 
-## What it compares
-
-Each benchmark progressively exposes the same model's inference path:
+## Project structure
 
 ```text
-native path inputs
-  → concurrent decode before the native boundary
-  → explicit batch preprocessing and direct model invocation
-  → concurrent decode and preprocessing before batched inference
+assets/         Versioned source inputs shared by case studies.
+src/            Runnable framework-specific case studies and reusable code.
+docs/           Methodology and provider setup guides.
+environments/   Immutable environment definitions used for reported runs.
+results/        Experiment output, environment captures, and derived data.
 ```
 
-The goal is not to label frameworks as slow. It is to identify when a model
-wrapper's execution scaffolding becomes the bottleneck, and to show which
-explicit pipeline boundaries recover throughput while preserving results.
+## Methodology
+
+Each case study begins with the inference façade exactly as a typical user would
+use it: follow the provider's documented setup and pass source inputs to its
+convenient API, without assuming detailed knowledge of its concurrency,
+timing, batching, or resource behavior.
+
+It then progressively exposes and instruments the source loading,
+preprocessing, batching, and model-invocation boundaries hidden by that façade.
+This shows how much efficiency can be recovered by making pipeline execution
+explicit, while preserving the model, task, input semantics, and requested
+output.
+
+See [Methodology](docs/methodology.md) for the complete measurement protocol.
+
+## Out of scope
+
+The case studies hold the model export constant. They do not compare
+quantization, precision changes, architecture changes, compilation, or
+hardware-specific exports such as TensorRT, ONNX Runtime, Core ML, or OpenVINO.
+
+Those techniques can improve model execution and should be evaluated separately.
+The pipeline efficiencies measured here are orthogonal: the same source loading,
+preprocessing, batching, and scheduling improvements can be applied around any
+fixed compatible model export.
 
 ## Current case studies
 
-| Framework | Model or task | Benchmark |
-|---|---|---|
-| Ultralytics | YOLO detection | `examples/run_batch_decode_comparison.py` |
-| PaddleOCR | PP-OCRv6 tiny text detection | `examples/run_paddleocr_batch_decode_comparison.py` |
-| Hugging Face Transformers | ViT image classification | `examples/run_transformers_vit_batch_decode_comparison.py` |
+| Framework                 | Model / Task                 | Upstream reference                                                                               | Benchmark                                             |
+|---------------------------|------------------------------|--------------------------------------------------------------------------------------------------|-------------------------------------------------------|
+| Ultralytics               | YOLO detection               | [Predict mode](https://docs.ultralytics.com/modes/predict/)                                      | `src/run_batch_decode_comparison.py`                  |
+| PaddleOCR                 | PP-OCRv6 tiny text detection | [Text Detection](https://www.paddleocr.ai/latest/en/version3.x/module_usage/text_detection.html) | `src/run_paddleocr_batch_decode_comparison.py`        |
+| Hugging Face Transformers | ViT image classification     | [google/vit-base-patch16-224](https://huggingface.co/google/vit-base-patch16-224)                | `src/run_transformers_vit_batch_decode_comparison.py` |
 
 The examples use [ml-pipes](https://github.com/trained-by-humans/ml-pipes) to
 make decode, preprocessing, and batching stages observable and independently
@@ -49,7 +70,7 @@ For the Hugging Face ViT study:
 ```bash
 python -m pip install transformers
 
-python -m ml_pipes benchmark examples.run_transformers_vit_batch_decode_comparison \
+python -m ml_pipes benchmark src.run_transformers_vit_batch_decode_comparison \
   --axis strategy=transformers-paths,scatter-transformers-decode,direct-model,direct-model-concurrent-preprocess \
   --axis inference_batch_size=8 \
   --axis max_concurrency=8 \
@@ -57,26 +78,7 @@ python -m ml_pipes benchmark examples.run_transformers_vit_batch_decode_comparis
   --runs 20 --warmup 3
 ```
 
-See [Benchmarking](docs/benchmarking.md) for the experiment protocol and a
-CLI-only AWS EC2 workflow.
-
-## Methodology principles
-
-- Keep model checkpoint, input data, image color semantics, batch size, and
-  output contract equivalent across routes.
-- Separate model construction, downloads, cold-cache behavior, and warm-up
-  from steady-state measurements.
-- Report end-to-end latency, throughput, per-stage timings, and hardware
-  utilization rather than one aggregate number alone.
-- Randomize or interleave configuration order to reduce CPU frequency and
-  thermal-state bias.
-- Validate output equivalence before interpreting a performance difference.
-
-## Scope
-
-This is a research artifact and benchmark suite, not an inference framework.
-Framework-specific production operators remain in their own repositories, such
-as [ml-pipes-ultralytics](https://github.com/requiem4machines/ml-pipes-ultralytics).
-
-Future case studies and provider guides can be added without coupling them to a
-particular framework package or cloud vendor.
+Add `--save results/<experiment-name>` to persist a run. See
+[Running experiments](docs/running-experiments.md) for the workflow,
+[Viewing stored results](docs/viewing-results.md) for loading artifacts, and
+[AWS EC2](docs/aws.md) for the CLI-only GPU workflow.

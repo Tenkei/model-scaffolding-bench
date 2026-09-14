@@ -2,7 +2,7 @@
 
 Run from the repository root with the ml-pipes benchmark CLI:
 
-    python -m ml_pipes benchmark examples.run_batch_decode_comparison \
+    python -m ml_pipes benchmark src.run_batch_decode_comparison \
         --axis strategy=ultralytics-paths,scatter-ultralytics-decode,scatter-decode \
         --data-axis batch_size=1,4,8
 
@@ -83,7 +83,7 @@ def build_pipeline(
 @data_factory
 def build_batch_input(
     batch_size: int = 1,
-    source: str = "docs/assets/bus.jpg",
+    source: str = "assets/images/ultralytics-sample.jpg",
 ) -> InputFn:
     """Build a stable batch by repeating one image path."""
     if batch_size < 1:

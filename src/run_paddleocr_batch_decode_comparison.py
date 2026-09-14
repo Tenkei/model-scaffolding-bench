@@ -7,7 +7,7 @@ Install the optional runtime dependencies first:
 Then run from the repository root:
 
     # Smoke test: three path/decoder routes for one document.
-    python -m ml_pipes benchmark examples.run_paddleocr_batch_decode_comparison \
+    python -m ml_pipes benchmark src.run_paddleocr_batch_decode_comparison \
         --axis strategy=paddleocr-paths,scatter-paddleocr-decode,scatter-decode \
         --axis max_concurrency=1 \
         --data-axis batch_size=1 \

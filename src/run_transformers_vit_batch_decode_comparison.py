@@ -6,7 +6,7 @@ Install the optional runtime dependency first:
 
 Then run from the repository root:
 
-    python -m ml_pipes benchmark examples.run_transformers_vit_batch_decode_comparison \
+    python -m ml_pipes benchmark src.run_transformers_vit_batch_decode_comparison \
         --axis strategy=transformers-paths,scatter-transformers-decode,direct-model,direct-model-concurrent-preprocess \
         --axis inference_batch_size=1,8 \
         --axis max_concurrency=1,8 \
@@ -40,7 +40,7 @@ from ml_pipes.operator import Operator
 from ml_pipes.standard import Gather, Scatter
 
 EXAMPLE_ASSETS = Path(__file__).parent / ".example_assets"
-SOURCE_IMAGE = Path("docs/assets/bus.jpg")
+SOURCE_IMAGE = Path("assets/images/ultralytics-sample.jpg")
 LARGE_SAMPLE_SIZE = (4096, 5461)
 
 Classification = dict[str, str | float]
