@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Generated benchmark inputs and framework caches.
+src/.example_assets/
+.cache/
