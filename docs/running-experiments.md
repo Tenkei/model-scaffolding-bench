@@ -85,14 +85,14 @@ python -m ml_pipes benchmark src.run_batch_decode_comparison \
 as immutable: make a new directory for a rerun, changed command, model,
 hardware, or environment.
 
-Record the environment alongside the saved JSON artifacts so a committed result
-can be interpreted and reproduced:
+After saving a result, capture the active environment in the same directory:
 
 ```bash
-nvidia-smi
-python --version
-python -m pip freeze
+python scripts/capture_environment.py results/<experiment-name>
 ```
+
+The script writes `environment.txt` containing `nvidia-smi`, `python --version`,
+and `python -m pip freeze`. It does not overwrite an existing capture.
 
 ## Next
 
