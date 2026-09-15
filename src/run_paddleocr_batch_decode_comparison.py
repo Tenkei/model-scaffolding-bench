@@ -1,11 +1,11 @@
 """Benchmark PaddleOCR text detection's native path loading against concurrent decoding.
 
-Install the case-study dependency and a PaddlePaddle runtime first. The command
-below installs the CPU runtime; for CUDA, install the compatible PaddlePaddle
-wheel from PaddlePaddle before installing this extra:
+For CPU or macOS, install the case-study dependencies from the repository root:
 
     python -m pip install -e '.[paddleocr]'
-    python -m pip install paddlepaddle
+
+For CUDA, install ``.[paddleocr-cuda]`` and then the compatible PaddlePaddle
+wheel from PaddlePaddle.
 
 Then run from the repository root:
 
@@ -42,8 +42,7 @@ try:
 except ModuleNotFoundError as exc:  # pragma: no cover - depends on an optional runtime.
     raise SystemExit(
         "This example requires PaddleOCR. Install it with:\n"
-        "  python -m pip install -e '.[paddleocr]'\n"
-        "  python -m pip install paddlepaddle"
+        "  python -m pip install -e '.[paddleocr]'"
     ) from exc
 
 from ml_pipes.core import Pipeline

@@ -10,9 +10,10 @@ preprocessing, batching, or scheduling explicit.
 | PaddleOCR detection | `PP-OCRv6_tiny_det` <br> text detection           | `python -m pip install -e '.[paddleocr]'`    | `src.run_paddleocr_batch_decode_comparison`        | Cached 4K PaddleOCR sample                  |
 | Hugging Face ViT    | `google/vit-base-patch16-224` <br> classification | `python -m pip install -e '.[transformers]'` | `src.run_transformers_vit_batch_decode_comparison` | Cached 4K version of the Ultralytics sample |
 
-PaddleOCR also requires a [PaddlePaddle runtime](https://www.paddlepaddle.org.cn/install/quick).
-Install `paddlepaddle` for CPU runs, or the wheel compatible with the
-selected CUDA environment for GPU runs.
+The `paddleocr` extra includes the CPU PaddlePaddle runtime and works on macOS.
+For CUDA, install `python -m pip install -e '.[paddleocr-cuda]'`, then use
+[PaddlePaddle's official installation guide and wheel selector](https://www.paddlepaddle.org.cn/install/quick)
+to install the package compatible with the selected CUDA environment.
 
 > [!NOTE]
 > Saved measurements are documented separately in
