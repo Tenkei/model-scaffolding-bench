@@ -54,31 +54,21 @@ fixed compatible model export.
 | PaddleOCR                 | PP-OCRv6 tiny text detection | [Text Detection](https://www.paddleocr.ai/latest/en/version3.x/module_usage/text_detection.html) | `src/run_paddleocr_batch_decode_comparison.py`        |
 | Hugging Face Transformers | ViT image classification     | [google/vit-base-patch16-224](https://huggingface.co/google/vit-base-patch16-224)                | `src/run_transformers_vit_batch_decode_comparison.py` |
 
+See the [Case-study index](docs/index.md) for installation commands,
+pipeline variants, supported axes, default inputs, and example runs.
+
 The examples use [ml-pipes](https://github.com/trained-by-humans/ml-pipes) to
 make decode, preprocessing, and batching stages observable and independently
 scheduled. They retain each upstream framework at its documented native input
 boundary whenever possible.
 
-## Run a benchmark
+## Documentation
 
-Install the dependencies required by the selected case study. The project is
-designed to be run from a checked-out source tree alongside the framework
-integration packages.
-
-For the Hugging Face ViT study:
-
-```bash
-python -m pip install transformers
-
-python -m ml_pipes benchmark src.run_transformers_vit_batch_decode_comparison \
-  --axis strategy=transformers-paths,scatter-transformers-decode,direct-model,direct-model-concurrent-preprocess \
-  --axis inference_batch_size=8 \
-  --axis max_concurrency=8 \
-  --data-axis batch_size=8 \
-  --runs 20 --warmup 3
-```
-
-Add `--save results/<experiment-name>` to persist a run. See
-[Running experiments](docs/running-experiments.md) for the workflow,
-[Viewing stored results](docs/viewing-results.md) for loading artifacts, and
-[AWS EC2](docs/aws.md) for the CLI-only GPU workflow.
+- [Methodology](docs/methodology.md) — experimental design and measurement
+  protocol.
+- [Case-study index](docs/index.md) — models, dependencies, pipeline variants,
+  supported axes, and example commands.
+- [Running experiments](docs/running-experiments.md) — provider preparation,
+  repeatable comparisons, and result storage.
+- [Viewing stored results](docs/viewing-results.md) — result artifacts and
+  programmatic loading.
