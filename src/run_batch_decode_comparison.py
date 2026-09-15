@@ -1,6 +1,10 @@
 """Benchmark native path loading against concurrent ml-pipes image decoding.
 
-Run from the repository root with the ml-pipes benchmark CLI:
+Install the case-study dependencies from the repository root:
+
+    python -m pip install -e '.[ultralytics]'
+
+Then run the benchmark:
 
     python -m ml_pipes benchmark src.run_batch_decode_comparison \
         --axis strategy=ultralytics-paths,scatter-ultralytics-decode,scatter-decode \

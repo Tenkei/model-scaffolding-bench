@@ -1,8 +1,8 @@
 """Benchmark Hugging Face ViT path loading against explicit concurrent preparation.
 
-Install the optional runtime dependency first:
+Install the case-study dependencies from the repository root:
 
-    python -m pip install transformers
+    python -m pip install -e '.[transformers]'
 
 Then run from the repository root:
 
@@ -31,7 +31,7 @@ try:
 except ModuleNotFoundError as exc:  # pragma: no cover - optional runtime dependency.
     raise SystemExit(
         "This example requires Hugging Face Transformers. Install it with:\n"
-        "  python -m pip install transformers"
+        "  python -m pip install -e '.[transformers]'"
     ) from exc
 
 from ml_pipes.core import Pipeline

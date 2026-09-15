@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "model-scaffolding-bench"
+version = "0.1.0"
+description = "Case studies for measuring model inference scaffolding"
+requires-python = ">=3.10"
+dependencies = [
+    "ml-pipes[vision]",
+]
+
+[project.optional-dependencies]
+ultralytics = [
+    "ml-pipes-ultralytics @ git+https://github.com/requiem4machines/ml-pipes-ultralytics.git",
+]
+paddleocr = [
+    "paddleocr",
+]
+transformers = [
+    "torch",
+    "transformers",
+]
+
+[tool.hatch.build.targets.wheel]
+bypass-selection = true
+
+[tool.hatch.metadata]
+allow-direct-references = true
