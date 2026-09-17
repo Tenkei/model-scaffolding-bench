@@ -1,14 +1,19 @@
 # model-scaffolding-bench
 
-`model-scaffolding-bench` investigates the software surrounding modern model
-inference: path loading, image decoding, preprocessing, batch formation,
-device transfer, and execution scheduling.
+LLMs made batching an obvious optimization. But in image and document
+workloads, a convenient call such as `model(paths)` can still hide source
+loading, image decoding, and preprocessing that run serially while a paid GPU
+waits for the next batch.
 
-The neural model is often only one part of end-to-end latency. Convenient
-framework façades can hide input preparation behind a single call, but that
-work may be serialized, repeated per item, or unable to overlap with batched
-accelerator inference. This repository measures those effects without changing
-the checkpoint, input pixels, task, or requested outputs.
+`model-scaffolding-bench` studies those hidden pipeline decisions. It compares
+a model provider's documented, path-based inference façade with equivalent
+pipelines that make loading, decoding, preprocessing, batching, device
+transfer, and scheduling explicit.
+
+Every comparison keeps the checkpoint, input pixels, task, and requested
+outputs fixed. The goal is to measure how much end-to-end efficiency can be
+recovered by exposing the pipeline around a fixed model—not to claim that the
+model itself became faster.
 
 ## Project structure
 
@@ -35,17 +40,6 @@ output.
 
 See [Methodology](docs/methodology.md) for the complete measurement protocol.
 
-## Out of scope
-
-The case studies hold the model export constant. They do not compare
-quantization, precision changes, architecture changes, compilation, or
-hardware-specific exports such as TensorRT, ONNX Runtime, Core ML, or OpenVINO.
-
-Those techniques can improve model execution and should be evaluated separately.
-The pipeline efficiencies measured here are orthogonal: the same source loading,
-preprocessing, batching, and scheduling improvements can be applied around any
-fixed compatible model export.
-
 ## Current case studies
 
 | Framework                 | Model / Task                 | Upstream reference                                                                               | Benchmark                                             |
@@ -64,6 +58,8 @@ boundary whenever possible.
 
 ## Documentation
 
+- [Study scope](docs/scope.md) — the optimization patterns and batch-processing
+  use case covered by the project.
 - [Methodology](docs/methodology.md) — experimental design and measurement
   protocol.
 - [Case-study index](docs/index.md) — models, dependencies, pipeline variants,
