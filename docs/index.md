@@ -63,7 +63,7 @@ Additional pipeline axes: `model`, `conf`, and `imgsz`.
 python -m ml_pipes benchmark src.run_batch_decode_comparison \
   --axis strategy=ultralytics-paths,scatter-ultralytics-decode,scatter-decode \
   --axis max_concurrency=1,8 \
-  --data-axis batch_size=1,4,8 \
+  --data-axis batch_size=8 \
   --runs 20 --warmup 3
 ```
 
@@ -82,7 +82,7 @@ Additional pipeline axis: `model_name`. The default model is
 python -m ml_pipes benchmark src.run_paddleocr_batch_decode_comparison \
   --axis strategy=paddleocr-paths,scatter-paddleocr-decode,scatter-decode \
   --axis max_concurrency=1,8 \
-  --data-axis batch_size=1,4,8 \
+  --data-axis batch_size=8 \
   --runs 20 --warmup 3
 ```
 
@@ -95,15 +95,19 @@ python -m ml_pipes benchmark src.run_paddleocr_batch_decode_comparison \
 | `direct-model` | Decode inputs and batch preprocessing explicitly, then invoke the same ViT model directly. |
 | `direct-model-concurrent-preprocess` | Concurrently decode and preprocess inputs before batching and direct model invocation. |
 
-Additional pipeline axes: `model_name` and `inference_batch_size`.
+Additional pipeline axes: `model_name`, `inference_batch_size`, and
+`image_processor_backend`. `image_processor_backend=torchvision` selects
+Transformers' torchvision-backed `ViTImageProcessor` and fails if torchvision
+is unavailable. Set it to `pil` to select `ViTImageProcessorPil` explicitly.
 `inference_batch_size` is the model-facing batch size; `batch_size` is the
 number of inputs passed to the pipeline.
 
 ```bash
 python -m ml_pipes benchmark src.run_transformers_vit_batch_decode_comparison \
   --axis strategy=transformers-paths,scatter-transformers-decode,direct-model,direct-model-concurrent-preprocess \
-  --axis inference_batch_size=1,8 \
-  --axis max_concurrency=1,8 \
-  --data-axis batch_size=1,8 \
+  --axis image_processor_backend=torchvision \
+  --axis inference_batch_size=8 \
+  --axis max_concurrency=8 \
+  --data-axis batch_size=8 \
   --runs 20 --warmup 3
 ```

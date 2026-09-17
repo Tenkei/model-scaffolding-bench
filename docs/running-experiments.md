@@ -21,13 +21,20 @@ For example, use its Deep Learning AMI setup and confirm the selected GPU with
 
 ## 2. Set up the case-study environment
 
-Create and activate an isolated Python environment:
+Create and activate an environment named after the selected case study.
+For example, for Ultralytics YOLO:
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
+python3 -m venv .venv-ultralytics
+source .venv-ultralytics/bin/activate
 python -m pip install --upgrade pip
 ```
+
+> [!CAUTION]
+> Do not install all case-study extras into one environment. The frameworks and
+> their GPU-runtime dependencies can require incompatible package versions.
+> Create and use a separate environment for each case study you run.
+
 
 Install the extra listed for the selected case study in the
 [Case-study index](index.md). Run an unmeasured invocation first when a
