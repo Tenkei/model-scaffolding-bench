@@ -24,6 +24,7 @@ paddleocr-cuda = [
 ]
 transformers = [
     "torch",
+    "torchvision",
     "transformers",
 ]
 
