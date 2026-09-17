@@ -1,0 +1,40 @@
+{
+  "label": "batch_size:8|strategy:paddleocr-paths|max_concurrency:1",
+  "metadata": {
+    "pipeline_config": {
+      "strategy": "paddleocr-paths",
+      "max_concurrency": 1
+    },
+    "data_config": {
+      "batch_size": 8
+    }
+  },
+  "total": {
+    "label": "total",
+    "count": 20,
+    "mean_ms": 1775.7441103982273,
+    "stddev_ms": 20.519906739457348,
+    "min_ms": 1749.7451250674203,
+    "max_ms": 1813.2607920560986,
+    "percentiles": {
+      "0.5": 1769.2041459959,
+      "0.95": 1813.1543121708091,
+      "0.99": 1813.2394960790407
+    }
+  },
+  "operators": [
+    {
+      "label": "0:TextDetectionPredict",
+      "count": 20,
+      "mean_ms": 1775.7372624415439,
+      "stddev_ms": 20.519777414862556,
+      "min_ms": 1749.7389579657465,
+      "max_ms": 1813.253749976866,
+      "percentiles": {
+        "0.5": 1769.1975000198,
+        "0.95": 1813.1476663518697,
+        "0.99": 1813.2325332518667
+      }
+    }
+  ]
+}

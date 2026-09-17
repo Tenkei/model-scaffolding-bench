@@ -1,0 +1,69 @@
+{
+  "label": "batch_size:8|strategy:scatter-paddleocr-decode|device:gpu:0|max_concurrency:1",
+  "metadata": {
+    "pipeline_config": {
+      "strategy": "scatter-paddleocr-decode",
+      "device": "gpu:0",
+      "max_concurrency": 1
+    },
+    "data_config": {
+      "batch_size": 8
+    }
+  },
+  "total": {
+    "label": "total",
+    "count": 100,
+    "mean_ms": 362.9691478100085,
+    "stddev_ms": 9.40228877175587,
+    "min_ms": 350.537882000026,
+    "max_ms": 372.01228799949604,
+    "percentiles": {
+      "0.5": 370.0322409999899,
+      "0.95": 371.681783550639,
+      "0.99": 371.9923989000381
+    }
+  },
+  "operators": [
+    {
+      "label": "0:Scatter",
+      "count": 100,
+      "mean_ms": 227.435628680023,
+      "stddev_ms": 7.034146207164864,
+      "min_ms": 218.07938599977206,
+      "max_ms": 234.00216099980753,
+      "percentiles": {
+        "0.5": 232.97161699974822,
+        "0.95": 233.65551849974509,
+        "0.99": 233.91201853002713
+      },
+      "children": [
+        {
+          "label": "1:PaddleOCRDecode",
+          "count": 100,
+          "mean_ms": 28.342239583745368,
+          "stddev_ms": 0.8704634483221446,
+          "min_ms": 27.188885375153404,
+          "max_ms": 29.16050525004721,
+          "percentiles": {
+            "0.5": 29.025697812528506,
+            "0.95": 29.11613330626892,
+            "0.99": 29.14950746378281
+          }
+        }
+      ]
+    },
+    {
+      "label": "3:TextDetectionPredict",
+      "count": 100,
+      "mean_ms": 135.38322438997056,
+      "stddev_ms": 2.4234011528394936,
+      "min_ms": 131.60070499998255,
+      "max_ms": 138.62386399978277,
+      "percentiles": {
+        "0.5": 136.72330699955637,
+        "0.95": 138.44135205035855,
+        "0.99": 138.57309482004894
+      }
+    }
+  ]
+}

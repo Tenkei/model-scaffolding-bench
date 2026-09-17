@@ -1,0 +1,40 @@
+{
+  "label": "batch_size:8|strategy:ultralytics-paths|max_concurrency:1",
+  "metadata": {
+    "pipeline_config": {
+      "strategy": "ultralytics-paths",
+      "max_concurrency": 1
+    },
+    "data_config": {
+      "batch_size": 8
+    }
+  },
+  "total": {
+    "label": "total",
+    "count": 20,
+    "mean_ms": 224.36418960569426,
+    "stddev_ms": 10.440225802548882,
+    "min_ms": 207.21424999646842,
+    "max_ms": 246.2768330005929,
+    "percentiles": {
+      "0.5": 221.75479197176173,
+      "0.95": 243.39382149628364,
+      "0.99": 245.70023069973104
+    }
+  },
+  "operators": [
+    {
+      "label": "0:Predict",
+      "count": 20,
+      "mean_ms": 224.35663546202704,
+      "stddev_ms": 10.43879580953367,
+      "min_ms": 207.20716705545783,
+      "max_ms": 246.2579170241952,
+      "percentiles": {
+        "0.5": 221.74779151100665,
+        "0.95": 243.3858693111688,
+        "0.99": 245.6835074815899
+      }
+    }
+  ]
+}

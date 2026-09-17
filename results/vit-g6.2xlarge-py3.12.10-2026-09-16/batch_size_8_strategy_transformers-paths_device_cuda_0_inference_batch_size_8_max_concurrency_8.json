@@ -1,0 +1,42 @@
+{
+  "label": "batch_size:8|strategy:transformers-paths|device:cuda:0|inference_batch_size:8|max_concurrency:8",
+  "metadata": {
+    "pipeline_config": {
+      "strategy": "transformers-paths",
+      "device": "cuda:0",
+      "inference_batch_size": 8,
+      "max_concurrency": 8
+    },
+    "data_config": {
+      "batch_size": 8
+    }
+  },
+  "total": {
+    "label": "total",
+    "count": 100,
+    "mean_ms": 1786.222113740032,
+    "stddev_ms": 24.220129104294216,
+    "min_ms": 1699.08689300064,
+    "max_ms": 1828.8030419998904,
+    "percentiles": {
+      "0.5": 1790.7954645002064,
+      "0.95": 1819.1903138003909,
+      "0.99": 1828.4502693602462
+    }
+  },
+  "operators": [
+    {
+      "label": "0:TransformersPipelinePredict",
+      "count": 100,
+      "mean_ms": 1786.208015230022,
+      "stddev_ms": 24.22047531952718,
+      "min_ms": 1699.0725830000883,
+      "max_ms": 1828.789252000206,
+      "percentiles": {
+        "0.5": 1790.7814189998135,
+        "0.95": 1819.1769727492556,
+        "0.99": 1828.4364783701221
+      }
+    }
+  ]
+}

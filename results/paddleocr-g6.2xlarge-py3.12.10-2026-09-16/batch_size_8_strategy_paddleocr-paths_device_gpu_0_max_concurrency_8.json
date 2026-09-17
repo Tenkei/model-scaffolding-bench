@@ -1,0 +1,41 @@
+{
+  "label": "batch_size:8|strategy:paddleocr-paths|device:gpu:0|max_concurrency:8",
+  "metadata": {
+    "pipeline_config": {
+      "strategy": "paddleocr-paths",
+      "device": "gpu:0",
+      "max_concurrency": 8
+    },
+    "data_config": {
+      "batch_size": 8
+    }
+  },
+  "total": {
+    "label": "total",
+    "count": 100,
+    "mean_ms": 374.24553685994397,
+    "stddev_ms": 8.015731169728646,
+    "min_ms": 348.77188700011175,
+    "max_ms": 384.5597119998274,
+    "percentiles": {
+      "0.5": 379.87239450012567,
+      "0.95": 383.5009735498261,
+      "0.99": 384.14001932017527
+    }
+  },
+  "operators": [
+    {
+      "label": "0:TextDetectionPredict",
+      "count": 100,
+      "mean_ms": 374.23302176001926,
+      "stddev_ms": 8.015732596441769,
+      "min_ms": 348.75897700021596,
+      "max_ms": 384.54806200024905,
+      "percentiles": {
+        "0.5": 379.86029900002904,
+        "0.95": 383.4880985998552,
+        "0.99": 384.12713182017796
+      }
+    }
+  ]
+}

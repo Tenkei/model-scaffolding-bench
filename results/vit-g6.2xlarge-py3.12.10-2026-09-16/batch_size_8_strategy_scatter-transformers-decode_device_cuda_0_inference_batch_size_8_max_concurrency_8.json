@@ -1,0 +1,70 @@
+{
+  "label": "batch_size:8|strategy:scatter-transformers-decode|device:cuda:0|inference_batch_size:8|max_concurrency:8",
+  "metadata": {
+    "pipeline_config": {
+      "strategy": "scatter-transformers-decode",
+      "device": "cuda:0",
+      "inference_batch_size": 8,
+      "max_concurrency": 8
+    },
+    "data_config": {
+      "batch_size": 8
+    }
+  },
+  "total": {
+    "label": "total",
+    "count": 100,
+    "mean_ms": 1540.8463110700268,
+    "stddev_ms": 37.506443442937986,
+    "min_ms": 1262.161451000793,
+    "max_ms": 1595.98075500071,
+    "percentiles": {
+      "0.5": 1541.8089065001368,
+      "0.95": 1577.2841848503049,
+      "0.99": 1591.369921080077
+    }
+  },
+  "operators": [
+    {
+      "label": "0:Scatter",
+      "count": 100,
+      "mean_ms": 360.95624720998785,
+      "stddev_ms": 2.2553810316469876,
+      "min_ms": 356.03959199943347,
+      "max_ms": 368.58692500027246,
+      "percentiles": {
+        "0.5": 360.541998500139,
+        "0.95": 364.95590594950045,
+        "0.99": 368.0084818602245
+      },
+      "children": [
+        {
+          "label": "1:TransformersDecode",
+          "count": 100,
+          "mean_ms": 311.4729692837295,
+          "stddev_ms": 11.81962382087383,
+          "min_ms": 284.105788374859,
+          "max_ms": 339.8305936249244,
+          "percentiles": {
+            "0.5": 312.42054706240197,
+            "0.95": 329.94905488145605,
+            "0.99": 337.75927379776135
+          }
+        }
+      ]
+    },
+    {
+      "label": "3:TransformersPipelinePredict",
+      "count": 100,
+      "mean_ms": 1133.3452827599922,
+      "stddev_ms": 37.17315032919963,
+      "min_ms": 857.693821999419,
+      "max_ms": 1186.2405460005903,
+      "percentiles": {
+        "0.5": 1134.2737719996876,
+        "0.95": 1170.9202390495193,
+        "0.99": 1184.6045145697462
+      }
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "label": "batch_size:8|strategy:scatter-ultralytics-decode|device:cuda:0|max_concurrency:1",
+  "metadata": {
+    "pipeline_config": {
+      "strategy": "scatter-ultralytics-decode",
+      "device": "cuda:0",
+      "max_concurrency": 1
+    },
+    "data_config": {
+      "batch_size": 8
+    }
+  },
+  "total": {
+    "label": "total",
+    "count": 100,
+    "mean_ms": 55.96746181995513,
+    "stddev_ms": 2.1460859722033083,
+    "min_ms": 53.908207999938895,
+    "max_ms": 62.240626999937376,
+    "percentiles": {
+      "0.5": 55.13677049998478,
+      "0.95": 61.56530109967662,
+      "0.99": 61.80655061023117
+    }
+  },
+  "operators": [
+    {
+      "label": "0:Scatter",
+      "count": 100,
+      "mean_ms": 29.902511710001818,
+      "stddev_ms": 2.158598583992833,
+      "min_ms": 28.074047999780305,
+      "max_ms": 36.575942000126815,
+      "percentiles": {
+        "0.5": 29.16168649994688,
+        "0.95": 35.60758849971535,
+        "0.99": 35.97042236009656
+      },
+      "children": [
+        {
+          "label": "1:UltralyticsDecode",
+          "count": 100,
+          "mean_ms": 3.688521246240839,
+          "stddev_ms": 0.2694036359876778,
+          "min_ms": 3.4651188749421635,
+          "max_ms": 4.522024124923973,
+          "percentiles": {
+            "0.5": 3.5951356249768196,
+            "0.95": 4.401751999978387,
+            "0.99": 4.445362484954103
+          }
+        }
+      ]
+    },
+    {
+      "label": "3:Predict",
+      "count": 100,
+      "mean_ms": 25.95173089999207,
+      "stddev_ms": 0.3856792042815883,
+      "min_ms": 25.526651999825845,
+      "max_ms": 27.459251999971457,
+      "percentiles": {
+        "0.5": 25.841194499889752,
+        "0.95": 26.887295100027586,
+        "0.99": 27.13518737971299
+      }
+    }
+  ]
+}
